@@ -1,7 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const Section = ({ title, desc, backgroundImg, leftBtnText, rightBtnText }) => {
+const Section = ({
+  title,
+  desc,
+  backgroundImg,
+  leftBtnText,
+  rightBtnText,
+  index,
+}) => {
   return (
     <Wrap backgroundImg={backgroundImg}>
       <ItemText>
@@ -13,7 +20,7 @@ const Section = ({ title, desc, backgroundImg, leftBtnText, rightBtnText }) => {
           <LeftButton>{leftBtnText}</LeftButton>
           {rightBtnText && <RightButton>{rightBtnText}</RightButton>}
         </ButtonGroup>
-        <DownArrow src="/images/down-arrow.svg"></DownArrow>
+        {index == 0 && <DownArrow src="/images/down-arrow.svg"></DownArrow>}
       </Buttons>
     </Wrap>
   );

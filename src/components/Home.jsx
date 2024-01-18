@@ -12,6 +12,7 @@ const Home = () => {
           return (
             <Section
               key={index}
+              index={index}
               title={title}
               desc={description}
               backgroundImg={image}
