@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { MdMenu, MdClose } from "react-icons/md";
@@ -6,6 +6,20 @@ import burgerNavData from "./../helper/burgerNav.json";
 
 const Header = () => {
   const [burgerOpen, setBurgerOpen] = useState(false);
+  const [showFullNav, setShowFullNav] = useState(true);
+
+  const handleScroll = () => {
+    const scrollTop = window.scrollY;
+    setShowFullNav(scrollTop < 50);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <Container>
@@ -14,15 +28,21 @@ const Header = () => {
           <img src="/images/logo.svg" alt="" />
         </Link>
       </Logo>
-      <Menu>
-        <Link to="/">Model S</Link>
-        <Link to="/">Model 3</Link>
-        <Link to="/">Model X</Link>
-        <Link to="/">Model Y</Link>
-      </Menu>
+      {showFullNav && (
+        <Menu>
+          <Link to="/">Model S</Link>
+          <Link to="/">Model 3</Link>
+          <Link to="/">Model X</Link>
+          <Link to="/">Model Y</Link>
+        </Menu>
+      )}
       <RightMenu>
-        <Link to="/">Shop</Link>
-        <Link to="/">Account</Link>
+        {showFullNav && (
+          <>
+            <Link to="/">Shop</Link>
+            <Link to="/">Account</Link>
+          </>
+        )}
         <CustomMenu onClick={() => setBurgerOpen(true)} />
       </RightMenu>
       <BurgerNav show={burgerOpen}>
